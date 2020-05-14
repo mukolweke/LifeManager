@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
+
 const app = new express();
 
 // env 
@@ -38,6 +40,7 @@ app.set('view engine', 'ejs');
 
 // BodyParser: enebles data to be fetched in req.body
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Express session
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
@@ -60,6 +63,9 @@ app.use((req, res, next)=>{
 //Routes
 app.use('/', require('./src/routes/index'));
 app.use('/users', require('./src/routes/users'));
+
+const User = require('./src/models/User');
+app.use('/api', require('./src/routes/auth')(User));
 
 
 app.server = app.listen(port, () => {

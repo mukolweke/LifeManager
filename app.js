@@ -28,10 +28,10 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Static files
 app.use(morgan('tiny'));
+
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
-app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+app.use('/', express.static(path.join(__dirname, '/public/css')));
+
 
 // EJS
 app.use(expressLayouts);

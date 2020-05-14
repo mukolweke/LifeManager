@@ -1,6 +1,10 @@
 # Node.js Sample Project
 
 Sample project to practise nodejs skills
+- passport aunthentication
+- creating API
+- having a web scrapper
+- node web
 
 
 ### Usage

@@ -15,7 +15,6 @@ function usersController(User) {
     const { name, email, password, password_confirm } = req.body;
     let errors = [];
 
-    // validations
     validateRegistrationForm(name, email, password, password_confirm, errors);
 
     if (errors.length > 0) {
@@ -42,9 +41,7 @@ function usersController(User) {
               bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) throw err;
 
-                // hashed password
                 newUser.password = hash;
-                // save user
                 newUser.save()
                   .then(user => {
                     req.flash('success_msg', 'You are now registered and can log in');
@@ -166,7 +163,11 @@ function usersController(User) {
     }
   }
 
-  return { getLogin, getRegister, saveUser, logoutUser, loginUser, getForgotPass, getForgotPassReset, updatePassword, confirmForgotPass }
+  return { 
+    getLogin, getRegister, saveUser, logoutUser, 
+    loginUser, getForgotPass, getForgotPassReset, 
+    updatePassword, confirmForgotPass 
+  }
 }
 
 

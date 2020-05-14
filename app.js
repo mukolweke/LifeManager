@@ -35,7 +35,7 @@ app.use('/', express.static(path.join(__dirname, '/public/css')));
 
 // EJS
 app.use(expressLayouts);
-app.set('views', './src/views');
+app.set('views', ['./src/views', './src/views/auth']);
 app.set('view engine', 'ejs');
 
 // BodyParser: enebles data to be fetched in req.body

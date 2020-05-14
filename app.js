@@ -1,4 +1,8 @@
-const express = require('express')
+const express = require('express');
+const chalk = require('chalk');
+const debug = require('debug')('app');
+const morgan = require('morgan');
+const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
@@ -9,19 +13,27 @@ const app = new express();
 // env 
 require('dotenv').config();
 
-const PORT = process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 // Passport config
-require('./config/passport')(passport);
+require('./src/config/passport')(passport);
 
 // Mongo config
 const db = process.env.DB_CONNECT;
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => debug(chalk.yellow('MongoDB Connected')))
   .catch(err => console.log(err));
+
+// Static files
+app.use(morgan('tiny'));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 
 // EJS
 app.use(expressLayouts);
+app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 // BodyParser: enebles data to be fetched in req.body
@@ -46,8 +58,12 @@ app.use((req, res, next)=>{
 })
 
 //Routes
-app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/', require('./src/routes/index'));
+app.use('/users', require('./src/routes/users'));
 
 
-app.listen(PORT, console.log(`Server running at port ${PORT}`));
+app.server = app.listen(port, () => {
+  debug(chalk.red(`\nServer runnning at port ${port}\n`));
+});
+
+module.exports = app;

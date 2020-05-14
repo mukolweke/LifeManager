@@ -4,25 +4,44 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "DEBUG=app,app:* nodemon app.js",
+    "lint": "eslint app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "mukolweSofts",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
+    "chalk": "^4.0.0",
     "connect-flash": "^0.1.1",
+    "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
+    "jquery": "^3.5.1",
     "mongoose": "^5.9.13",
+    "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": "4000"
+    }
+  },
   "devDependencies": {
     "ejs-lint": "^1.1.0",
+    "eslint": "^6.8.0",
     "nodemon": "^2.0.3"
   }
 }

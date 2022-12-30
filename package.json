@@ -23,7 +23,7 @@
     "express-ejs-layouts": "^2.5.0",
     "express-session": "^1.17.1",
     "jquery": "^3.5.1",
-    "mocha": "^7.1.2",
+    "mocha": "^10.2.0",
     "mongoose": "^5.9.13",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
